@@ -31,7 +31,7 @@ echo -n "\", "
 
 echo -n "\"Total\" : \""
 /usr/bin/free -m | /bin/grep -v shared | /usr/bin/awk '/Mem/ {printf $2 }'
-echo -n "\" }"
+echo -n "\" } "
 
 # Json end
-echo -n "\" }"
+echo -n "}"
