@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Json start
 echo -n "{"
 
