@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Json start
-echo -n "{"
+printf "{"
 
-echo -n "\"updates\" : \""
+printf "\"updates\" : \""
 
 #debian/ubuntu
-echo -n `apt-get -s upgrade | awk '/[0-9]+ upgraded,/ {print $1}'`
+printf `apt-get -s upgrade | awk '/[0-9]+ upgraded,/ {print $1}'`
 
-echo -n "\""
+printf "\""
 
 # Json end
-echo -n "}"
+printf "}"

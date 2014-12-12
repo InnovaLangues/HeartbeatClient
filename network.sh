@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Json start
-echo -n "{"
+printf "{"
 
 # Network
-echo -n "\"Network\" : { "
+printf "\"Network\" : { "
 
 # Hostname
-echo -n "\"Hostname\" : \""
+printf "\"Hostname\" : \""
 /bin/hostname | /usr/bin/tr -d '\n'
-echo -n "\" },"
+printf "\" },"
 
 # Uptime
-echo -n "\"Uptime\" : \""
+printf "\"Uptime\" : \""
 /usr/bin/uptime | /bin/grep -ohe 'up .*' | /bin/sed 's/,//g' | /usr/bin/awk '{ print $2" "$3 }' | /usr/bin/tr -d '\n'
-echo -n "\""
+printf "\""
 
 # Json end
-echo -n "}"
+printf "}"
