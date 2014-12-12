@@ -1,37 +1,30 @@
 #!/bin/bash
 
 # Json start
-echo -n "{"
+printf "{"
 
 # Disk
-echo -n "\"Disk\" : { ";
-echo -n "\""
-/bin/df --total | awk  ' /total/ { print "total\" : \""$2"\", \"used\" : \""$3"\", \"free\" : \""$4"\", \"percentage\" : \""$5"" }' | /usr/bin/tr -d '\n'
-echo -n "\" }, "
+printf "\"disk\":{";
+printf "\""
+/bin/df --total | /usr/bin/awk  '/total/ { printf "total\":\""$2"\",\"used\":\""$3"\",\"free\":\""$4"\""}' | /usr/bin/tr -d '\n'
+printf "},"
 
 # CPU
-echo -n "\"CPU\" : { ";
-
+printf "\"cpu\":{";
 # Count
-echo -n "\"Count\" : \""
+printf "\"count\":\""
 /bin/grep -c ^processor /proc/cpuinfo | /usr/bin/tr -d '\n'
-echo -n "\", "
+printf "\","
 
 # Load
-echo -n "\"Load\" : \""
-/bin/cat /proc/loadavg | /usr/bin/awk '{print $1","$2","$3}' | /usr/bin/tr -d '\n'
-echo -n "\" }, "
+printf "\"load\":{\""
+/bin/cat /proc/loadavg | /usr/bin/awk '{print "min1\":\""$1"\",\"min5\":\""$2"\",\"min15\":\""$3""}' | /usr/bin/tr -d '\n'
+printf "\"}},"
 
 # Memory
-echo -n "\"Memory\" : { ";
-
-echo -n "\"Free\" : \""
-/usr/bin/free -m | /bin/grep -v shared | /usr/bin/awk '/buffers/ {printf $4 }'
-echo -n "\", "
-
-echo -n "\"Total\" : \""
-/usr/bin/free -m | /bin/grep -v shared | /usr/bin/awk '/Mem/ {printf $2 }'
-echo -n "\" } "
+printf "\"memory\":{";
+/usr/bin/free | /usr/bin/awk 'NR == 2 {printf "\"total\":\""$2"\",\"used\":""\""$3"\",\"free\":\""$4"\","} NR == 3 {printf "\"buffersCache\":{\"used\":\""$3"\",\"free\":\""$4"\"},"} NR ==4 {printf "\"swap\":{\"total\":\""$2"\",\"used\":\""$3"\",\"free\":\""$4"\"}"}'
+printf "}"
 
 # Json end
-echo -n "}"
+printf "}"
