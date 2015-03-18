@@ -5,7 +5,7 @@ printf "{"
 
 # Disk
 printf "\"disk\":{";
-printf "\""
+echo "\""
 /bin/df --total | /usr/bin/awk  '/total/ { printf "total\":\""$2"\",\"used\":\""$3"\",\"free\":\""$4"\""}' | /usr/bin/tr -d '\n'
 printf "},"
 
