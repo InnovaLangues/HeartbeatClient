@@ -3,6 +3,12 @@
 # Json start
 printf "{"
 
+# Timestamp
+printf "\"timestamp\":";
+printf "\""
+date +%s | /usr/bin/tr -d '\n'
+printf "\","
+
 # Disk
 printf "\"disk\":{";
 printf "\""
